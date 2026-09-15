@@ -1,0 +1,34 @@
+# Per-device backups and test outputs are private/local only.
+/sessions/
+/session*/
+/.sessions/
+/recovery-session*/
+/dist/
+/.release-work/
+/tests/fixtures/
+/tests/network-fixtures/
+/tests/TEST_RESULTS.json
+/tests/VERIFICATION.txt
+/tests/RUN_STDOUT.log
+/tests/RUN_STDERR.log
+/tests/NETWORK_RESULTS.json
+/tests/NETWORK_VERIFICATION.txt
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+
+# Protect per-install artifacts even when a session uses an arbitrary name.
+MANIFEST.plist
+ORIGINAL_FILE.plist
+MODIFIED_FILE.plist
+DIFF_FILE.diff
+VERIFICATION.txt
+!examples/ORIGINAL_FILE.plist
+!examples/MODIFIED_FILE.plist
+!examples/DIFF_FILE.diff
+.env
+.env.*
+*.pem
+*.key
+*.p12

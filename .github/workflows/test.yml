@@ -1,0 +1,22 @@
+name: macOS fixture tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify distribution
+        run: /bin/sh SELF_TEST.sh
+      - name: Scan public files
+        run: python3 scripts/check_public.py
+      - name: Core isolated tests
+        run: python3 tests/run_tests.py
+      - name: Build release fixture
+        run: python3 scripts/build_release.py
+      - name: Network downloader isolated tests
+        run: python3 tests/test_network_download.py
