@@ -23,11 +23,11 @@ import unittest
 
 
 REPO = Path(__file__).resolve().parents[1]
-ASSET = "macos-depnag-toolkit-v2.1.0.tar.gz"
+ASSET = "macos-depnag-toolkit-v2.2.0.tar.gz"
 TOP = "macos-depnag-toolkit"
 RELEASE = (
     "https://github.com/jackylam0812/macos-depnag-toolkit/"
-    "releases/download/v2.1.0/"
+    "releases/download/v2.2.0/"
 )
 RESULTS = []
 
@@ -97,7 +97,7 @@ class DownloadTests(unittest.TestCase):
         )
         self.mock_curl.chmod(0o755)
         self.script = self.root / "GET_TOOLKIT.fixture.sh"
-        source = (REPO / "GET_TOOLKIT.sh").read_text()
+        source = (REPO / "GET_TOOLKIT.sh").read_bytes().decode("utf-8")
         needle = "CURL='/usr/bin/curl'"
         self.assertEqual(source.count(needle), 1)
         self.script.write_text(source.replace(needle, "CURL='" + str(self.mock_curl) + "'"))
@@ -297,7 +297,7 @@ class DownloadTests(unittest.TestCase):
             '/usr/bin/tar "$@"\n'
         )
         mock_tar.chmod(0o755)
-        self.script.write_text(self.script.read_text().replace(
+        self.script.write_text(self.script.read_bytes().decode("utf-8").replace(
             "TAR='/usr/bin/tar'", "TAR='" + str(mock_tar) + "'"
         ))
         self.run_get(2, "Archive extraction failed")
@@ -320,7 +320,7 @@ class DownloadTests(unittest.TestCase):
 
     def test_32_move_failure_cleans_created_destination(self):
         self.pack()
-        self.script.write_text(self.script.read_text().replace(
+        self.script.write_text(self.script.read_bytes().decode("utf-8").replace(
             '/bin/mv -- "$ITEM" "$DEST/"', '/usr/bin/false'
         ))
         self.run_get(2, "Moving the verified toolkit failed")

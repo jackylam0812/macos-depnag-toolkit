@@ -6,7 +6,7 @@ die() { printf '%s\n' "$1" >&2; exit 2; }
 [ "$#" -eq 0 ] || die 'Usage: SELF_TEST.sh'
 [ -x "$BASE/sha256-file" ] || die 'sha256-file is missing or not executable.'
 "$BASE/sha256-file" --self-test || die 'Native SHA-256 self-test failed.'
-for SCRIPT in lib.sh PREPARE.sh APPLY_IN_RECOVERY.sh ROLLBACK.sh STATUS.sh VERIFY_AFTER_BOOT.sh SELF_TEST.sh GET_TOOLKIT.sh; do
+for SCRIPT in lib.sh PREPARE.sh APPLY_IN_RECOVERY.sh ROLLBACK.sh STATUS.sh VERIFY_AFTER_BOOT.sh SELF_TEST.sh GET_TOOLKIT.sh ONE_CLICK.sh; do
  /bin/sh -n "$BASE/$SCRIPT" || die "Shell syntax failed: $SCRIPT"
 done
 echo 'shell_syntax=ok'
@@ -22,12 +22,14 @@ STATUS.sh
 VERIFY_AFTER_BOOT.sh
 SELF_TEST.sh
 GET_TOOLKIT.sh
+ONE_CLICK.sh
 sha256-file
 src/sha256-file.c
 src/LICENSE
 src/build.sh
 tests/run_tests.py
 tests/test_network_download.py
+tests/test_one_click.py
 scripts/build_release.py
 scripts/update_checksums.py
 scripts/check_public.py
@@ -36,6 +38,7 @@ examples/ORIGINAL_FILE.plist
 examples/MODIFIED_FILE.plist
 examples/DIFF_FILE.diff
 docs/VALIDATION.md
+docs/ADVANCED.md
 .github/workflows/test.yml
 .gitignore'
 SEEN='

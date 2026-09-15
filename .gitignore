@@ -32,3 +32,7 @@ VERIFICATION.txt
 *.pem
 *.key
 *.p12
+
+/tests/ONE_CLICK_RESULTS.json
+/tests/ONE_CLICK_VERIFICATION.txt
+/tests/one-click-fixtures/

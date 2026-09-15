@@ -18,6 +18,7 @@ python3 scripts/check_public.py
 python3 tests/run_tests.py
 python3 scripts/build_release.py
 python3 tests/test_network_download.py
+python3 tests/test_one_click.py
 ```
 
 - 核心测试在合成卷目录中替换身份、挂载点和故障注入工具绑定，不向真实原生状态写入。
@@ -25,7 +26,8 @@ python3 tests/test_network_download.py
 - 基线包括 `Disabled` 缺失或为 false；应用后为 true；回滚在独立副本上恢复准备时的原始字节和状态。
 - 覆盖新安装 UUID、变化的源文件、损坏备份、额外字段篡改、软链接、快照竞态、重复应用、部分写入、校验失败、元数据变化及连续终止信号。
 - 网络测试使用受控下载响应与真实解压/校验工具，不会调用原生应用脚本。
-- 下载器只获取和验证工具包。准备、应用和回滚都需要用户另行调用。
+- `GET_TOOLKIT.sh` 只获取和验证工具包。`ONE_CLICK.sh` 根据用户明确选择的场景串联步骤：prepare 不写原生状态，apply 在恢复模式备份并应用，check 只读验证，rollback 恢复最后成功应用时的备份。
+- 已关闭状态的 apply 不覆盖原回滚指针；多块候选卷不自动猜测；互斥锁与失败退出避免并发操作。
 
 测试输出含执行机器上的临时路径和环境信息，默认保留在被 Git 忽略的本地目录中；不要将它们或真实 session 上传公开仓库。
 

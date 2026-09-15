@@ -1,5 +1,9 @@
 name: macOS fixture tests
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -20,3 +24,5 @@ jobs:
         run: python3 scripts/build_release.py
       - name: Network downloader isolated tests
         run: python3 tests/test_network_download.py
+      - name: One-click scenario isolated tests
+        run: python3 tests/test_one_click.py

@@ -185,7 +185,7 @@ exec "$BASE/sha256-file.real" "$@"
             '/Volumes/': str(self.root / 'Volumes') + '/',
         }
         for script in list(self.bundle.glob('*.sh')) + list((self.bundle / 'bin').glob('*.sh')):
-            text = script.read_text()
+            text = script.read_bytes().decode("utf-8")
             changes = {}
             # Only exact quoted absolute live-target literals, not $DATA/private/... concatenation.
             live_target = '/private/var/db/ConfigurationProfiles/Settings/com.apple.mdm.depnag.plist'

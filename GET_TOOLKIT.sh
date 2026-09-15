@@ -6,7 +6,7 @@ set -eu
 umask 077
 export LC_ALL=C
 
-VERSION='v2.1.0'
+VERSION='v2.2.0'
 TOP='macos-depnag-toolkit'
 ASSET="${TOP}-${VERSION}.tar.gz"
 RELEASE="https://github.com/jackylam0812/${TOP}/releases/download/${VERSION}"
